@@ -117,8 +117,11 @@ public:
         x.head = nullptr;
     }
     JsonAllocator &operator=(JsonAllocator &&x) {
-        head = x.head;
-        x.head = nullptr;
+        if (this != &x) {
+            deallocate();
+            head = x.head;
+            x.head = nullptr;
+        }
         return *this;
     }
     ~JsonAllocator() {
