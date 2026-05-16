@@ -146,7 +146,10 @@ int jsonParse(char *s, char **endptr, JsonValue *value, JsonAllocator &allocator
     while (*s) {
         while (isspace(*s)) {
             ++s;
-            if (!*s) break;
+        }
+        if (!*s) {
+            *endptr = s;
+            return JSON_BREAKING_BAD;
         }
         *endptr = s++;
         switch (**endptr) {
